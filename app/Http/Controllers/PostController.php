@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,20 +15,31 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    public function show(Post $post)
+    {
+        return view('posts.show', compact('post'));
+    }
+
+
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        $authors = Author::all(); // Ambil semua data author
+        return view('posts.create', compact('categories', 'authors'));
     }
+
+
+    // app/Http/Controllers/PostController.php
 
     public function store(Request $request)
     {
         $request->validate([
-            'title'         => 'required|string|max:255',
-            'content'       => 'required|string',
-            'image'         => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'is_published'  => 'nullable|boolean',
-            'category_id'   => 'required|exists:categories,id',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'is_published' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'author_id' => 'required|exists:authors,id', // Tambahkan validasi untuk author_id
         ]);
 
         try {
@@ -38,40 +50,67 @@ class PostController extends Controller
 
             Post::create([
                 'title' => $request->title,
-                'content' => $request->content,
+                'content' => $request->input('content'),
                 'image' => $imagePath,
                 'is_published' => $request->is_published ?? false,
-                'category_id' => $request->category_id
+                'category_id' => $request->category_id,
+                'author_id' => $request->author_id // Simpan author_id
             ]);
-            return redirect()->route('posts.index')->with('success', 'Category created successfully');
+
+            return redirect()->route('posts.index')->with('success', 'Post created successfully');
         } catch (\Exception $err) {
             return redirect()->route('posts.index')->with('error', $err->getMessage());
         }
     }
 
-    public function edit(Post $category)
+
+
+    public function edit(Post $post)
     {
-        return view('posts.edit', compact('category'));
+        $categories = Category::all();
+        $authors = Author::all(); // Ambil semua data author
+        return view('posts.edit', compact('post', 'categories', 'authors'));
     }
 
-    public function update(Request $request, Post $category)
+    public function update(Request $request, Post $post)
     {
         $request->validate([
-            'name'        => 'required|unique:categories|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'is_published' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         try {
-            $category->update($request->all());
-            return redirect()->route('posts.index')->with('success', 'Category updated successfully');
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('asset-images', 'public');
+                $post->update([
+                    'image' => $imagePath
+                ]);
+            }
+
+            $post->update([
+                'title' => $request->title,
+                'content' => $request->input('content'),
+                'is_published' => $request->is_published ?? false,
+                'category_id' => $request->category_id
+            ]);
+
+            return redirect()->route('posts.index')->with('success', 'Post updated successfully');
         } catch (\Exception $err) {
             return redirect()->route('posts.index')->with('error', $err->getMessage());
         }
     }
 
-    public function destroy(Post $category)
+
+    public function destroy(Post $post)
     {
-        $category->delete();
-        return redirect()->route('posts.index')->with('success', 'Category deleted successfully');
+        try {
+            $post->delete();
+            return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
+        } catch (\Exception $err) {
+            return redirect()->route('posts.index')->with('error', $err->getMessage());
+        }
     }
 }

@@ -1,0 +1,201 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto; /* Footer tetap di bawah */
+}
+
+.card {
+  border: none;
+  border-radius: 10px; /* Sudut lebih bulat untuk kartu */
+}
+
+.btn-warning, .btn-danger {
+  transition: background-color 0.3s ease;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800; /* Warna saat hover */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Warna saat hover */
+}
+
+
+footer {
+  padding: 1rem 0; 
+  background-color: #000; /* Warna latar belakang footer */
+  color: #fff; /* Warna teks footer */
+}
+
+footer p {
+  margin: 0; /* Menghilangkan margin pada paragraf dalam footer */
+}
+
+body {
+  background-color: #f0f0f0; /* Warna latar belakang */
+  color: #333; /* Warna teks */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  transition: all 0.3s ease;
+  background-color: #000; /* Warna latar belakang navbar */
+}
+
+.navbar.scrolled {
+  background-color: #444; /* Warna latar belakang navbar saat di-scroll */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+  color: #fff; /* Warna teks link */
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #92021a !important; /* Ganti warna saat hover */
+}
+
+
+.footer-text {
+  padding: 20px;
+  text-align: center;
+}
+
+.alert {
+  background-color: #fff; /* Latar belakang alert */
+  color: #333; /* Warna teks alert */
+}
+
+.alert-success {
+  border-left: 5px solid #28a745; /* Warna border sukses */
+}
+
+.alert-danger {
+  border-left: 5px solid #dc3545; /* Warna border error */
+}
+
+h1.display-4 {
+  animation: slideIn 1.5s ease-out;
+}
+
+@keyframes slideIn {
+  0% {
+      transform: translateY(-20px);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+i {
+  font-size: 1.2rem;
+}
+
+h1.display-4 {
+  animation: slideIn 1.5s ease-out;
+  font-size: 2.5rem;
+}
+
+@keyframes slideIn {
+  0% {
+      transform: translateY(-20px);
+      opacity: 0;
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+.custom-btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.custom-btn i {
+  font-size: 1rem;
+}
+
+.custom-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.btn-outline-light {
+  border-color: black;
+  color: #bbb;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: #bbb;
+  color: #000;
+}
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Icon Spacing */
+i {
+  margin-right: 5px;
+}
+
+/* Form Styles */
+input.form-control {
+  color: white;
+  border: 1px solid #444;
+}
+
+.bg-dark {
+  background-color: #333 !important;
+}
+
+.text-light {
+  color: #bbb !important;
+}
+
+

@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required|unique:categories|string|max:255',
+            'name' => 'required|unique:categories|string|max:255',
             'description' => 'nullable|string',
         ]);
 
@@ -38,10 +38,11 @@ class CategoryController extends Controller
         return view('categories.edit', compact('category'));
     }
 
+
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name'        => 'required|unique:categories|string|max:255',
+            'name' => 'required|unique:categories,name,' . $category->id . '|string|max:255',
             'description' => 'nullable|string',
         ]);
 
@@ -58,4 +59,10 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
+
+    public function show(Category $category)
+    {
+        return view('categories.show', compact('category'));
+    }
+
 }
